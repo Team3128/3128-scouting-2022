@@ -14,9 +14,6 @@ imgF.src = 'fieldF.png';
 var img = imgN;
 var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
-
-// does this thing work?
-
 img.onload = function () {
   fill_canvas(img);
 }
