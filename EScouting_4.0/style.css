@@ -1,0 +1,257 @@
+:root{
+    --mainColor: #f2efed;
+    --bgColor: #1c1b1d;
+    --accentColor: #deaf9d;
+    --highlightColor: #4e3e3e;
+    --errColor: #bf616a;
+    --altBgColor:#262223;
+
+    --mainFont: 'Inter', sans-serif;
+    --secondFont: 'Roboto Mono', monospace;
+}
+
+::selection{
+    background-color: var(--accentColor)
+}
+
+body{
+    background-color: var(--bgColor);
+    margin: 0px;
+    font-family: var(--mainFont);
+    overflow-y: hidden;
+}
+
+.header{
+    font-size: 56px;
+    font-family: var(--mainFont);
+    font-weight: 500;
+    color: var(--mainColor);
+    text-align: center;
+}
+
+.line{
+    border: none;
+    border-top: var(--accentColor) 1px solid; 
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 30vw;
+    margin-right:auto;
+    margin-left:auto;
+    opacity: 100%;
+}
+
+#initDivLine{
+    transform: none;
+}
+
+#initContainer{
+    height: 90vh;
+    width: 50vw;
+    margin: auto;
+    margin-top: 15vh;
+}
+
+#initFormContainer{
+    width: 100%;
+    height: 55vh;
+    opacity: 100%;
+    transition: 0.2s all;
+}
+
+.initFormContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.initForm{
+    width: calc(30vw - 1rem);
+    margin: auto;
+    margin-top: 0.5vh;
+    height: 4vh;
+
+    border-radius: 0.5rem;
+    background-color: var(--altBgColor);
+    border: 2px solid rgba(0, 0, 0, 0);
+    padding: 0.5rem;
+    outline: 0px;
+    
+    caret-color: var(--accentColor);
+
+    font-family: "Roboto Mono", monospace;
+    font-size: 16px;
+    color: var(--mainColor);
+
+    transition: all 0.2s;
+}
+
+.initForm:focus{
+    border: 2px var(--accentColor) solid;
+}
+
+.initLabel{
+    width: 30vw;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 0vh;
+    font-family: "Roboto Mono", monospace;
+    color: var(--accentColor);
+
+}
+
+#initBtn{
+    width: 30vw;
+    height: calc(5vh + 1rem);
+    border-radius: 0.5rem;
+    border: 2px var(--altBgColor) solid;
+    background-color: var(--altBgColor);
+    color: var(--mainColor);
+
+    margin: auto;
+    margin-top: 3vh;
+
+    font-size: 18px;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+
+    transition: all 0.2s;
+}
+
+#initBtn:hover{
+    border: 2px var(--accentColor) solid;
+    background-color: var(--accentColor);
+    cursor: pointer;
+}
+
+#standbyContainer{
+    display:none;
+    flex-direction: column;
+    /* border-radius: 100%;
+    border: var(--mainColor) 2px solid; */
+
+    width: 70vh;
+    height: 50vh;
+
+    margin: auto;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--accentColor);
+    font-size: 26px;
+    font-family: "Roboto Mono", monospace;
+}
+
+
+
+.hl-span{
+    background-color: var(--highlightColor);
+    color: var(--bgColor);
+    padding: 2px;
+}
+
+#standbyLabel{
+    font-size: 14px;
+    color: var(--highlightColor);
+}
+
+#fieldCanvas{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+#fieldCanvas:hover{
+    cursor: pointer;
+}
+
+#mainPage{
+    margin-top: 1.5vw;
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
+    width: calc(1.5vw*3 + 23vw*4);
+    height: 95vh;
+    display:none;
+
+
+    grid-template-columns: repeat(4, 23vw);
+    grid-template-rows: auto auto auto auto 5vh;
+
+    gap: 1.5vw;
+    
+}
+
+.mainPageBox{
+    border: solid var(--accentColor) 2px;
+    background-color: var(--altBgColor);
+    border-radius: 1rem;
+
+    display:flex;
+    font-family: "Roboto Mono", monospace;
+    font-size: 3em;
+    color: var(--mainColor);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1;
+}
+
+#displayBar{
+    grid-column: 2 / 4;
+    grid-row: 5 / 5;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#display-match{
+    color: var(--mainColor);
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+}
+
+#display-team{
+    color: var(--mainColor);
+    font-family: "Roboto Mono", monospace;
+    font-size: 1rem;
+}
+
+#display-timer{
+    color: var(--mainColor);
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.mainPageLabel{
+    color: var(--highlightColor);
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+    font-size: 1.2rem;
+    z-index: 2;
+
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    user-select: none;
+
+    margin-right: 1vw;
+    margin-bottom: 0.6vw;
+}
+
+.mainPageCounter{
+    color: var(--highlightColor);
+    font-family: "Roboto Mono", monospace;
+    font-weight: 500;
+    font-size: 1.2rem;
+    z-index: 2;
+
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    user-select: none;
+
+    margin-left: 1vw;
+    margin-bottom: 0.6vw;
+}
