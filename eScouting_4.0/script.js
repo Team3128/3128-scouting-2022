@@ -1,8 +1,8 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [];
-let startAudio = new Audio("/sfx/start.wav")
-let clickAudio = new Audio("/sfx/click.wav")
+let startAudio = new Audio("sfx/start.wav")
+let clickAudio = new Audio("sfx/click.wav")
 var img = new Image();
-img.src = '/img/field.png';
+img.src = 'img/field.png';
 var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
