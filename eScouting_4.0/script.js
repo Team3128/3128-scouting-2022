@@ -7,6 +7,11 @@ var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.drawImage(img, 0, 0);
+
+//TEST DATA, REMOVE LATER
+//testData = [false, 1, 2, 3, 4, 5, 6, false, null, 0, 0, false, "", false, "test", "data", "one"]
+//localStorage.setItem(1000, testData)
+
 document.getElementById("fieldCanvas").addEventListener("click", ()=>{
     canvasClicked()
 })
@@ -83,6 +88,25 @@ function canvasClicked(){
     ctx.fill();
     ctx.stroke();
     console.log("canvas clicked, x: " + Math.round(pos.x) + ", y: " + Math.round(pos.y));
+}
+function search() {
+    searchTerm = document.getElementById("initSearchForm").value
+    value = JSON.stringify(localStorage.getItem(searchTerm))
+    if (value == "null") {
+        document.getElementById('qrOutput').innerHTML = "";
+        return
+    }
+
+    console.log("Search term: " + searchTerm)
+    console.log("Data: " + value)
+
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(value);
+    qr.make();
+    document.getElementById('qrOutput').innerHTML = qr.createImgTag();
+    //document.getElementById("qrText").innerHTML = dataValues;
 }
 function generateMainPage(stage){
     document.getElementById("display-match").innerHTML = "Match:  " + matchNum;
@@ -384,7 +408,7 @@ function timerStart(i){
     delay = true;
     updateTimer();
 
-    window.timerFunction = setInterval(updateTimer, 1000)
+    window.timerFunction = setInterval(updateTimer, 1000) // should be 1000
     
     console.log("started")
 }
@@ -631,6 +655,12 @@ function transition(i){
 }
 
 function resetGame(){
+
+    //save information in web storage
+    localStorage.setItem(matchNum, dataValues)
+
+    //console.log(localStorage.getItem(matchNum))
+
     state="init";
     timer = 150;
     delay = true;
