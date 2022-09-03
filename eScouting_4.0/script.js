@@ -1,8 +1,8 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false;
-let startAudio = new Audio("/sfx/start.wav")
-let clickAudio = new Audio("/sfx/click.wav")
+let startAudio = new Audio("sfx/start.wav")
+let clickAudio = new Audio("sfx/click.wav")
 var img = new Image();
-img.src = '/img/field.png';
+img.src = 'img/field.png';
 var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -115,6 +115,26 @@ function canvasClicked(){
     ctx.fill();
     ctx.stroke();
     console.log("canvas clicked, x: " + Math.round(pos.x) + ", y: " + Math.round(pos.y));
+}
+function search() {
+    searchTerm = document.getElementById("initSearchForm").value
+    value = JSON.stringify(localStorage.getItem(searchTerm))
+    if (value == "null" || searchTerm == "null") {
+        document.getElementById('qrOutput').innerHTML = "";
+        console.log("No data found")
+        return
+    }
+
+    console.log("Search term: " + searchTerm)
+    console.log("Data: " + value)
+
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(value);
+    qr.make();
+    document.getElementById('qrOutput').innerHTML = qr.createImgTag();
+    //document.getElementById("qrText").innerHTML = dataValues;
 }
 function generateMainPage(stage){
     document.getElementById("display-match").innerHTML = "Match:  " + matchNum;
