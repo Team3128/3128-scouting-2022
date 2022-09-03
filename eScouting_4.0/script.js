@@ -1,4 +1,4 @@
-let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [];
+let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false;
 let startAudio = new Audio("/sfx/start.wav")
 let clickAudio = new Audio("/sfx/click.wav")
 var img = new Image();
@@ -7,11 +7,6 @@ var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.drawImage(img, 0, 0);
-
-//TEST DATA, REMOVE LATER
-//testData = [false, 1, 2, 3, 4, 5, 6, false, null, 0, 0, false, "", false, "test", "data", "one"]
-//localStorage.setItem(1000, testData)
-
 document.getElementById("fieldCanvas").addEventListener("click", ()=>{
     canvasClicked()
 })
@@ -30,12 +25,44 @@ let uniqueKeys = keys.filter((i, index) => {
 });
 let qrRefresh = setInterval(()=>{ if(state == "after") updateQr() }, 1000);
 window.addEventListener('keydown', function (keystroke) {
+    
+
+    if(keystroke.key == "Alt"){
+        if(state == "init"){
+            return;
+        }
+        console.log("toggled")
+        document.getElementById("notes").classList.remove("notesAnim")
+        document.getElementById("notes").classList.remove("notesAnimR")
+        document.getElementById("notesPage").classList.remove("notesPageAnim")
+        document.getElementById("notesPage").classList.remove("notesPageAnimR")
+
+        if(!notesToggled){
+            
+            document.getElementById('notesPage').classList.add("notesPageAnim")
+            document.getElementById('notes').classList.add("notesAnim")
+            notesToggled = true;
+            document.getElementById("notes").innerHTML = dataValues[14];
+
+        }
+        else{
+            document.getElementById('notesPage').classList.add("notesPageAnimR")
+            document.getElementById('notes').classList.add("notesAnimR")
+            dataValues[14] = document.getElementById("notes").values
+            notesToggled = false;
+        }
+
+    }
+    if(notesToggled){
+        return;
+    }
 
     console.log(keystroke.key)
 
     if(state == "after"){
        updateQr();
     }
+
 
 
     if(keystroke.key == " " && state == "standby"){
@@ -88,25 +115,6 @@ function canvasClicked(){
     ctx.fill();
     ctx.stroke();
     console.log("canvas clicked, x: " + Math.round(pos.x) + ", y: " + Math.round(pos.y));
-}
-function search() {
-    searchTerm = document.getElementById("initSearchForm").value
-    value = JSON.stringify(localStorage.getItem(searchTerm))
-    if (value == "null") {
-        document.getElementById('qrOutput').innerHTML = "";
-        return
-    }
-
-    console.log("Search term: " + searchTerm)
-    console.log("Data: " + value)
-
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(value);
-    qr.make();
-    document.getElementById('qrOutput').innerHTML = qr.createImgTag();
-    //document.getElementById("qrText").innerHTML = dataValues;
 }
 function generateMainPage(stage){
     document.getElementById("display-match").innerHTML = "Match:  " + matchNum;
@@ -263,6 +271,7 @@ function generateMainPage(stage){
                     textbox.style.height = "14vh";
                     textbox.style.paddingTop = "7px";
                     textbox.style.resize = "none";
+                    textbox.innerHTML = dataValues[14]
                     container.appendChild(textbox)
                 }
                 else{
@@ -408,7 +417,7 @@ function timerStart(i){
     delay = true;
     updateTimer();
 
-    window.timerFunction = setInterval(updateTimer, 1000) // should be 1000
+    window.timerFunction = setInterval(updateTimer, 1000)
     
     console.log("started")
 }
@@ -485,8 +494,6 @@ function updateQr(){
 
     document.getElementById("qrText").innerHTML = dataValues;
 }
-
-
 let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null){
@@ -655,12 +662,6 @@ function transition(i){
 }
 
 function resetGame(){
-
-    //save information in web storage
-    localStorage.setItem(matchNum, dataValues)
-
-    //console.log(localStorage.getItem(matchNum))
-
     state="init";
     timer = 150;
     delay = true;
@@ -696,6 +697,9 @@ function resetGame(){
     document.getElementById("initDivLine").classList.remove("transitionEvent1")
     document.getElementById("initFormContainer").classList.remove("hideClass")
     document.getElementById("initFormContainer").classList.remove("transitionEvent0")
+
+    document.getElementById("mainPage").classList.remove("afterPageContainer");
+    document.getElementById("mainPage").classList.add("mainPage");
 }
 
 
