@@ -1,4 +1,5 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false;
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
 var img = new Image();
@@ -13,6 +14,29 @@ document.getElementById("fieldCanvas").addEventListener("click", ()=>{
 document.getElementById("initBtn").addEventListener("click", ()=>{
     transition(0);
 })
+
+document.getElementById("searchBtn").addEventListener("click", ()=>{
+    searchTerm = document.getElementById("initSearchForm").value
+    value = JSON.stringify(localStorage.getItem(searchTerm))
+    if (value == "null" || searchTerm == "null") {
+        document.getElementById('qrOutput').innerHTML = "";
+        console.log("No data found")
+        return
+    }
+
+    console.log("Search term: " + searchTerm)
+    console.log("Data: " + value)
+
+    var typeNumber = 0;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(value);
+    qr.make();
+    document.getElementById('qrOutput').innerHTML = qr.createImgTag();
+    console.log("Data found for match " + searchTerm + ": ");
+    console.log(value);
+})
+
 let keys = [];
 for(let i = 0; i < settings.auto.length; i++){
     keys.push(settings.auto[i].trigger);
@@ -425,6 +449,7 @@ function generateMainPage(stage){
         qrBtn.addEventListener("click", ()=>clickEvt("transition", null, null))
         qrBox.appendChild(qrBtn);
 
+
         updateQr()
 
         
@@ -437,7 +462,7 @@ function timerStart(i){
     delay = true;
     updateTimer();
 
-    window.timerFunction = setInterval(updateTimer, 1000)
+    window.timerFunction = setInterval(updateTimer, timeInt)
     
     console.log("started")
 }
@@ -496,7 +521,6 @@ function updateQr(){
             }
         }
         else if(typeof dataValues[i] == "string"){
-
             let textValue = document.getElementById(("str" + i)).value;
             textValue = textValue.replaceAll(",", ";");
             dataValues[i] = textValue
@@ -505,13 +529,14 @@ function updateQr(){
         
     }    console.log(dataValues)
 
+    var matchInfo = [matchNum, teamNum]
+
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(JSON.stringify(dataValues));
+    qr.addData(JSON.stringify(matchInfo.concat(dataValues)));
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
-
     document.getElementById("qrText").innerHTML = dataValues;
 }
 let incArr = []
@@ -682,6 +707,9 @@ function transition(i){
 }
 
 function resetGame(){
+    var matchInfo = [matchNum, teamNum]
+    localStorage.setItem(matchNum, matchInfo.concat(dataValues));
+    
     state="init";
     timer = 150;
     delay = true;
@@ -710,7 +738,6 @@ function resetGame(){
     displayBar.appendChild(displayTeam);
 
     document.getElementById("mainPage").style.display = "none";
-
 
     document.getElementById("initPage").style.display = "flex";
     document.getElementById("standbyContainer").style.display = "none";
