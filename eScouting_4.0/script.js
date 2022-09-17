@@ -1,5 +1,7 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false;
+
 let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
+
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
 var img = new Image();
@@ -8,6 +10,9 @@ var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.drawImage(img, 0, 0);
+
+window.onscroll = () => { window.scroll(0, 0); };
+
 document.getElementById("fieldCanvas").addEventListener("click", ()=>{
     canvasClicked()
 })
@@ -52,7 +57,7 @@ window.addEventListener('keydown', function (keystroke) {
     
 
     if(keystroke.key == "Alt"){
-        if(state == "init"){
+        if(state == "init" || state == "after"){
             return;
         }
         console.log("toggled")
@@ -62,17 +67,24 @@ window.addEventListener('keydown', function (keystroke) {
         document.getElementById("notesPage").classList.remove("notesPageAnimR")
 
         if(!notesToggled){
-            
+        
             document.getElementById('notesPage').classList.add("notesPageAnim")
             document.getElementById('notes').classList.add("notesAnim")
+            document.getElementById('notes').focus()
             notesToggled = true;
-            document.getElementById("notes").innerHTML = dataValues[14];
+            if (dataValues[14] == null) {
+                document.getElementById("notes").innerHTML = "";
+            } else {
+                document.getElementById("notes").innerHTML = dataValues[14];
+            }
 
         }
         else{
+            document.getElementById('notes').blur()
+
             document.getElementById('notesPage').classList.add("notesPageAnimR")
             document.getElementById('notes').classList.add("notesAnimR")
-            dataValues[14] = document.getElementById("notes").values
+            dataValues[14] = document.getElementById("notes").value
             notesToggled = false;
         }
 
@@ -231,6 +243,15 @@ function generateMainPage(stage){
     }
     if(stage == "after"){
         document.getElementById("displayBar").style.display = "none"
+
+        //close notes box if it is open
+        document.getElementById('notes').blur()
+        dataValues[14] = document.getElementById("notes").value
+        document.getElementById("notes").classList.remove("notesAnim")
+        document.getElementById("notes").classList.remove("notesAnimR")
+        document.getElementById("notesPage").classList.remove("notesPageAnim")
+        document.getElementById("notesPage").classList.remove("notesPageAnimR")
+
         let mainPage = document.getElementById("mainPage");
         mainPage.style.display = "flex"
         mainPage.classList.remove("mainPage");
@@ -315,7 +336,7 @@ function generateMainPage(stage){
                     textbox.style.height = "14vh";
                     textbox.style.paddingTop = "7px";
                     textbox.style.resize = "none";
-                    textbox.innerHTML = dataValues[14]
+                    textbox.innerHTML = dataValues[14];
                     container.appendChild(textbox)
                 }
                 else{
@@ -449,11 +470,7 @@ function generateMainPage(stage){
         qrBtn.addEventListener("click", ()=>clickEvt("transition", null, null))
         qrBox.appendChild(qrBtn);
 
-
         updateQr()
-
-        
-        
 
     }
 }
@@ -748,17 +765,6 @@ function resetGame(){
     document.getElementById("mainPage").classList.remove("afterPageContainer");
     document.getElementById("mainPage").classList.add("mainPage");
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //settings ideas: flashbang (visual feedback)
 //annoying reminders: did you put in auto time? climb bool? at edit screen

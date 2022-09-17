@@ -529,6 +529,8 @@ body{
     display:flex;
     justify-content: center;
 
+    overflow-wrap: break-word;
+
     border: 2px solid var(--bgColor);
     border-radius: 0.5rem;
     background-color: var(--altBgColor);
