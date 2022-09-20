@@ -20,9 +20,14 @@ document.getElementById("initBtn").addEventListener("click", ()=>{
     transition(0);
 })
 
+function clearStorage() {
+    console.log("CLEARING DATA");
+    localStorage.clear()
+}
+
 document.getElementById("searchBtn").addEventListener("click", ()=>{
     searchTerm = document.getElementById("initSearchForm").value
-    value = JSON.stringify(localStorage.getItem(searchTerm))
+    value = localStorage.getItem(searchTerm)
     if (value == "null" || searchTerm == "null") {
         document.getElementById('qrOutput').innerHTML = "";
         console.log("No data found")
@@ -152,26 +157,7 @@ function canvasClicked(){
     ctx.stroke();
     console.log("canvas clicked, x: " + Math.round(pos.x) + ", y: " + Math.round(pos.y));
 }
-function search() {
-    searchTerm = document.getElementById("initSearchForm").value
-    value = JSON.stringify(localStorage.getItem(searchTerm))
-    if (value == "null" || searchTerm == "null") {
-        document.getElementById('qrOutput').innerHTML = "";
-        console.log("No data found")
-        return
-    }
 
-    console.log("Search term: " + searchTerm)
-    console.log("Data: " + value)
-
-    var typeNumber = 0;
-    var errorCorrectionLevel = 'L';
-    var qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(value);
-    qr.make();
-    document.getElementById('qrOutput').innerHTML = qr.createImgTag();
-    //document.getElementById("qrText").innerHTML = dataValues;
-}
 function generateMainPage(stage){
     document.getElementById("display-match").innerHTML = "Match:  " + matchNum;
     document.getElementById("display-team").innerHTML = "Team: " + teamNum;
@@ -186,6 +172,7 @@ function generateMainPage(stage){
             box.style.gridRowEnd = settings.auto[i].rowEnd;
             let wType = settings.auto[i].writeType;
             let wLoc = settings.auto[i].writeLoc;
+            box.id = "box" + wLoc
             box.addEventListener("click", ()=>clickEvt(wType, wLoc))
             document.getElementById("mainPage").appendChild(box);
 
@@ -219,6 +206,7 @@ function generateMainPage(stage){
             box.style.gridRowEnd = settings.tele[i].rowEnd;
             let wType = settings.tele[i].writeType;
             let wLoc = settings.tele[i].writeLoc;
+            box.id = "box" + wLoc
             box.addEventListener("click", ()=>clickEvt(wType, wLoc))
             document.getElementById("mainPage").appendChild(box);
 
@@ -551,7 +539,7 @@ function updateQr(){
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(JSON.stringify(matchInfo.concat(dataValues)));
+    qr.addData(matchInfo.concat(dataValues).toString());
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
     document.getElementById("qrText").innerHTML = dataValues;
@@ -574,6 +562,11 @@ function clickEvt(type, loc, rev = null){
     if(type == "bool"){
         dataValues[loc] = !dataValues[loc];
         document.getElementById("label" + loc).innerHTML = dataValues[loc];
+        if (dataValues[loc]) {
+            document.getElementById("box" + loc).style.backgroundColor = "var(--accentColor)"
+        } else {
+            document.getElementById("box" + loc).style.backgroundColor = "var(--altBgColor)"
+        }
     }
     if(type == "inc"){
         if(rev){
@@ -581,9 +574,11 @@ function clickEvt(type, loc, rev = null){
         }
         if(incArr.includes(loc)){
             incArr.splice(incArr.indexOf(loc), 1);
+            document.getElementById("box" + loc).style.backgroundColor = "var(--altBgColor)"
         }
         else{
             incArr.push(loc);
+            document.getElementById("box" + loc).style.backgroundColor = "var(--accentColor)"
         }
         document.getElementById("label" + loc).innerHTML = dataValues[loc];
     }
