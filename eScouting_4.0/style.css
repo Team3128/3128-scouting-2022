@@ -578,6 +578,12 @@ body{
         cursor: pointer;
     }
 
+    #qrOutput{
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     #notesPage{
         width: 100vw;
         height: 100vh;
