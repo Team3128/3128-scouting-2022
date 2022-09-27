@@ -4,7 +4,7 @@ let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
-var img = new Image();
+var img = new Image(); 
 img.src = 'img/field.png';
 var canvas = document.getElementById('fieldCanvas');
 var ctx = canvas.getContext('2d');
@@ -551,11 +551,15 @@ function clickEvt(type, loc, rev = null){
     // clickAudio.play();
     //during game
     if(type == "int"){
+        document.getElementById("box" + loc).classList.remove("clickAnim");
+        void document.getElementById("box" + loc).offsetWidth;
         if(rev){
             dataValues[loc]--;
+            document.getElementById("box" + loc).classList.add("clickAnim");
         }
         if(!rev){
             dataValues[loc]++;
+            document.getElementById("box" + loc).classList.add("clickAnim");
         }
         document.getElementById("label" + loc).innerHTML = dataValues[loc];
     }
