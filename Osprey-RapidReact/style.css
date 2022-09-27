@@ -256,7 +256,7 @@ body{
 }
 
 .mainPageLabel{
-    color: var(--highlightColor);
+    color: var(--mainColor);
     font-family: "Roboto Mono", monospace;
     font-weight: 500;
     font-size: 1.2rem;
@@ -273,7 +273,7 @@ body{
 }
 
 .mainPageCounter{
-    color: var(--highlightColor);
+    color: var(--mainColor);
     font-family: "Roboto Mono", monospace;
     font-weight: 500;
     font-size: 1.2rem;

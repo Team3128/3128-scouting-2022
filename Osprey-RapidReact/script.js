@@ -1,4 +1,4 @@
-let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [];
+let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
 let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1 second
 
@@ -23,6 +23,13 @@ document.getElementById("initBtn").addEventListener("click", ()=>{
 function clearStorage() {
     console.log("CLEARING DATA");
     localStorage.clear()
+    return;
+}
+
+function setColor(col) {
+    allianceColor = col;
+    console.log("Alliance color set to: " + allianceColor)
+    return;
 }
 
 document.getElementById("searchBtn").addEventListener("click", ()=>{
@@ -517,7 +524,7 @@ function updateQr(){
 
         if(i == 8){ //scrappy code, should change later   
         }
-        else if(typeof dataValues[i] == "boolean"){
+        else if(typeof dataValues[i] == "boolean"){ //convert boolean to 0 or 1
             if(dataValues[i]){
                 dataValues[i] = 1;
             }
@@ -525,7 +532,7 @@ function updateQr(){
                 dataValues[i] = 0;
             }
         }
-        else if(typeof dataValues[i] == "string"){
+        else if(typeof dataValues[i] == "string"){ 
             let textValue = document.getElementById(("str" + i)).value;
             textValue = textValue.replaceAll(",", ";");
             dataValues[i] = textValue
@@ -540,7 +547,7 @@ function updateQr(){
     qr.addData(matchInfo.concat(dataValues).toString());
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
-    document.getElementById("qrText").innerHTML = dataValues;
+    document.getElementById("qrText").innerHTML = matchInfo.concat(dataValues);
 }
 let incArr = []
 let selected = -1;
@@ -675,9 +682,7 @@ function transition(i){
         matchNum = document.getElementById("initMatchForm").value;
         teamNum = document.getElementById("initNumberForm").value;
 
-        matchInfo = [teamNum, matchNum, scoutNum] //add alliance color
-
-
+        matchInfo = [teamNum, matchNum, scoutNum]; // add alliance color later
 
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
         setTimeout(()=>{
@@ -731,6 +736,7 @@ function resetGame(){
     delay = true;
     rowContent = [];
     incArr = [];
+    matchInfo = [];
     selected = -1;
     clearInterval(timerFunction);
     teamNum = null;
