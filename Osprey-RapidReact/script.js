@@ -1,6 +1,6 @@
-let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false;
+let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [];
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1 second
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -534,8 +534,6 @@ function updateQr(){
         
     }    console.log(dataValues)
 
-    var matchInfo = [matchNum, teamNum]
-
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
@@ -652,7 +650,6 @@ function clickEvt(type, loc, rev = null){
 
     if(type == "transition"){
         if(confirm("Resetting game... Are you sure you have been scanned and given OK?")){
-            var matchInfo = [matchNum, teamNum]
             localStorage.setItem(matchNum, matchInfo.concat(dataValues));
             resetGame()
         }
@@ -677,6 +674,9 @@ function transition(i){
         scoutNum = document.getElementById("initIdForm").value;
         matchNum = document.getElementById("initMatchForm").value;
         teamNum = document.getElementById("initNumberForm").value;
+
+        matchInfo = [teamNum, matchNum, scoutNum] //add alliance color
+
 
 
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
@@ -734,6 +734,7 @@ function resetGame(){
     selected = -1;
     clearInterval(timerFunction);
     teamNum = null;
+    matchInfo = [];
 
     dataValues = [false, 0, 0, 0, 0, 0, 0, false, null, 0, 0, false, "", false, "", "", ""]
 
@@ -742,6 +743,10 @@ function resetGame(){
     let displayBar = document.createElement("div");
     displayBar.setAttribute("id", "displayBar");
     mainPage.appendChild(displayBar);
+
+    //resetting initial page values
+    document.getElementById("initNumberForm").value = '';
+    document.getElementById("initMatchForm").value++;
 
     let displayMatch = document.createElement("div");
     displayMatch.setAttribute("id", "display-match");
@@ -763,6 +768,8 @@ function resetGame(){
 
     document.getElementById("mainPage").classList.remove("afterPageContainer");
     document.getElementById("mainPage").classList.add("mainPage");
+
+
 }
 
 //settings ideas: flashbang (visual feedback)
