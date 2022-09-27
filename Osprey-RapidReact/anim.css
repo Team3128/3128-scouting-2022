@@ -106,7 +106,7 @@
 
 @keyframes clickAnim{
     0%{
-        background-color: var(--mainColor);
+        background-color: var(--accentColor);
     }
     100%{
         background-color: var(--highlightColor);
