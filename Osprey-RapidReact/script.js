@@ -1,6 +1,6 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1 second
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -740,7 +740,6 @@ function resetGame(){
     selected = -1;
     clearInterval(timerFunction);
     teamNum = null;
-    matchInfo = [];
 
     dataValues = [false, 0, 0, 0, 0, 0, 0, false, null, 0, 0, false, "", false, "", "", ""]
 
@@ -753,7 +752,7 @@ function resetGame(){
     //resetting initial page values
     document.getElementById("initNumberForm").value = '';
     document.getElementById("initMatchForm").value++;
-
+    
     let displayMatch = document.createElement("div");
     displayMatch.setAttribute("id", "display-match");
     displayBar.appendChild(displayMatch);
@@ -774,8 +773,6 @@ function resetGame(){
 
     document.getElementById("mainPage").classList.remove("afterPageContainer");
     document.getElementById("mainPage").classList.add("mainPage");
-
-
 }
 
 //settings ideas: flashbang (visual feedback)
