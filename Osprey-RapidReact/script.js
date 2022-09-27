@@ -1,6 +1,6 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1 second
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -684,7 +684,6 @@ function transition(i){
 
         matchInfo = [teamNum, matchNum, scoutNum]; // add alliance color later
 
-
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
         setTimeout(()=>{
             document.getElementById("initFormContainer").classList.add("hideClass");
@@ -741,6 +740,7 @@ function resetGame(){
     selected = -1;
     clearInterval(timerFunction);
     teamNum = null;
+    matchInfo = [];
 
     dataValues = [false, 0, 0, 0, 0, 0, 0, false, null, 0, 0, false, "", false, "", "", ""]
 
@@ -749,6 +749,10 @@ function resetGame(){
     let displayBar = document.createElement("div");
     displayBar.setAttribute("id", "displayBar");
     mainPage.appendChild(displayBar);
+
+    //resetting initial page values
+    document.getElementById("initNumberForm").value = '';
+    document.getElementById("initMatchForm").value++;
 
     let displayMatch = document.createElement("div");
     displayMatch.setAttribute("id", "display-match");
@@ -770,6 +774,8 @@ function resetGame(){
 
     document.getElementById("mainPage").classList.remove("afterPageContainer");
     document.getElementById("mainPage").classList.add("mainPage");
+
+
 }
 
 //settings ideas: flashbang (visual feedback)
