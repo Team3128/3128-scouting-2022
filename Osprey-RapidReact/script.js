@@ -682,7 +682,13 @@ function transition(i){
         matchNum = document.getElementById("initMatchForm").value;
         teamNum = document.getElementById("initNumberForm").value;
 
-        matchInfo = [teamNum, matchNum, scoutNum]; // add alliance color later
+        if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
+            if (!confirm("Did you enter the alliance color using setColor('b') or setColor('r')?")) {
+              return;
+            }
+        }
+
+        matchInfo = [teamNum, matchNum, scoutNum, allianceColor];
 
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
         setTimeout(()=>{
