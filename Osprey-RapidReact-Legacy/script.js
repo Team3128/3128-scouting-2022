@@ -1,7 +1,7 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 let autoPos = [0, 0];
 
-let timeInt = 10; // Time Interval, SHOULD BE 1000!!!!!!! = 1
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
