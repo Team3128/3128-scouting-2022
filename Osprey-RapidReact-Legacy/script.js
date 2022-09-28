@@ -1,6 +1,7 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
+let autoPos = [0, 0];
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1
+let timeInt = 10; // Time Interval, SHOULD BE 1000!!!!!!! = 1
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -522,7 +523,22 @@ function updateQr(){
 
     for(let i=0; i<dataValues.length; i++){
 
-        if(i == 8){ //scrappy code, should change later   
+        if(i == 8){ //scrappy code, should change later  
+            if (dataValues[8] == "N") {
+                dataValues[8] = 0;
+            }
+            if (dataValues[8] == "L") {
+                dataValues[8] = 1;
+            }
+            if (dataValues[8] == "M") {
+                dataValues[8] = 2;
+            }
+            if (dataValues[8] == "H") {
+                dataValues[8] = 3;
+            }
+            if (dataValues[8] == "T") {
+                dataValues[8] = 4;
+            }
         }
         else if(typeof dataValues[i] == "boolean"){ //convert boolean to 0 or 1
             if(dataValues[i]){
@@ -544,7 +560,7 @@ function updateQr(){
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(matchInfo.concat(dataValues).toString());
+    qr.addData(dataValues.slice(0, 11).concat(autoPos).concat(dataValues.slice(11)).toString());
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
     document.getElementById("qrText").innerHTML = matchInfo.concat(dataValues);
@@ -657,7 +673,7 @@ function clickEvt(type, loc, rev = null){
 
     if(type == "transition"){
         if(confirm("Resetting game... Are you sure you have been scanned and given OK?")){
-            localStorage.setItem(matchNum, matchInfo.concat(dataValues));
+            localStorage.setItem(matchNum, dataValues.slice(0, 11).concat(autoPos).concat(dataValues.slice(11)).toString());
             resetGame()
         }
     }
