@@ -548,7 +548,9 @@ function updateQr(){
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
     document.getElementById("qrText").innerHTML = matchInfo.concat(dataValues);
+
 }
+
 let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null){
