@@ -1,6 +1,6 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1
+let timeInt = 10; // Time Interval, SHOULD BE 1000!!!!!!! = 1
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -548,7 +548,32 @@ function updateQr(){
     qr.make();
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
     document.getElementById("qrText").innerHTML = matchInfo.concat(dataValues);
+
+    const ele = document.getElementById('qrText');
+    const styles = window.getComputedStyle(ele);
+    const font = styles.font;
+    const fontSize = parseInt(styles.fontSize);
+    const measured = measureHeight(ele.textContent, font);
+    const scale = ele.clientHeight / parseFloat(measured);
+    const scaleFontSize = Math.floor(scale * fontSize);
+    //ele.style.fontSize = `${scaleFontSize}px`;
+
+
 }
+const measureHeight = function (text, font) {
+    // Create new `canvas` element
+    const canvas = document.createElement('canvas');
+    // Get the context
+    const context = canvas.getContext('2d');
+    // Set the font
+    context.font = font;
+    // Measure the text
+    const metrics = context.measureText(text);
+    // Return the width in pixels
+    console.log(metrics.emHeightAscent)
+    return metrics.emHeightAscent;
+};
+
 let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null){

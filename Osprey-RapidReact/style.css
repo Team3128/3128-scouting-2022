@@ -536,9 +536,11 @@ body{
     background-color: var(--altBgColor);
 
     padding: 2vh;
-    height: 10vh;
+    height: auto;
 
     transition: 0.5s all;
+
+    word-break: break-all;
   }
 
   #qrText:hover{
