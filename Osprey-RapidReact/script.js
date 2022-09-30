@@ -549,30 +549,7 @@ function updateQr(){
     document.getElementById('qrContainer').innerHTML = qr.createImgTag();
     document.getElementById("qrText").innerHTML = matchInfo.concat(dataValues);
 
-    const ele = document.getElementById('qrText');
-    const styles = window.getComputedStyle(ele);
-    const font = styles.font;
-    const fontSize = parseInt(styles.fontSize);
-    const measured = measureHeight(ele.textContent, font);
-    const scale = ele.clientHeight / parseFloat(measured);
-    const scaleFontSize = Math.floor(scale * fontSize);
-    //ele.style.fontSize = `${scaleFontSize}px`;
-
-
 }
-const measureHeight = function (text, font) {
-    // Create new `canvas` element
-    const canvas = document.createElement('canvas');
-    // Get the context
-    const context = canvas.getContext('2d');
-    // Set the font
-    context.font = font;
-    // Measure the text
-    const metrics = context.measureText(text);
-    // Return the width in pixels
-    console.log(metrics.emHeightAscent)
-    return metrics.emHeightAscent;
-};
 
 let incArr = []
 let selected = -1;
