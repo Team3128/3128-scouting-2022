@@ -6,6 +6,9 @@
     --errColor: #bf616a;
     --altBgColor:#262223;
 
+    --b: rgb(0, 0, 255);
+    --r: #ff0000;
+
     --mainFont: 'Inter', sans-serif;
     --secondFont: 'Roboto Mono', monospace;
 }
