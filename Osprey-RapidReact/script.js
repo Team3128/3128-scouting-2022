@@ -1,9 +1,6 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
-function debugTime() {
-    timeInt = 10;
-}
+let timeInt = 10; // Time Interval, SHOULD BE 1000!!!!!!!
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -22,6 +19,10 @@ document.getElementById("fieldCanvas").addEventListener("click", ()=>{
 document.getElementById("initBtn").addEventListener("click", ()=>{
     transition(0);
 })
+document.getElementById("initHeader").addEventListener("click", ()=>{
+    switchColor()
+    console.log("color clicked")
+})
 
 function clearStorage() {
     console.log("CLEARING DATA");
@@ -33,6 +34,18 @@ function setColor(col) {
     allianceColor = col;
     console.log("Alliance color set to: " + allianceColor)
     return;
+}
+
+function switchColor() {
+    if (allianceColor == "b") {
+        console.log("red")
+        allianceColor = "r"
+        document.getElementById("initHeader").style.color = "var(--r)";
+    } else {
+        console.log("blue")
+        allianceColor = "b"
+        document.getElementById("initHeader").style.color = "var(--b)";
+    }
 }
 
 document.getElementById("searchBtn").addEventListener("click", ()=>{
@@ -683,7 +696,7 @@ function transition(i){
         teamNum = document.getElementById("initNumberForm").value;
 
         if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
-            if (!confirm("Did you enter the alliance color using setColor('b') or setColor('r')?")) {
+            if (!confirm("Did you enter the alliance color by clicking eScouting?")) {
               return;
             }
         }
