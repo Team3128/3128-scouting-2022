@@ -1,6 +1,6 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 10; // Time Interval, SHOULD BE 1000!!!!!!!
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
