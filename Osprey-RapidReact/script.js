@@ -1,6 +1,9 @@
 let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
-let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!! = 1
+let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
+function debugTime() {
+    timeInt = 10;
+}
 
 let startAudio = new Audio("sfx/start.wav")
 let clickAudio = new Audio("sfx/click.wav")
@@ -396,11 +399,6 @@ function generateMainPage(stage){
                 row.appendChild(cell);
             }
             tableBody.appendChild(row);
-
-
-
-
-
         }
         mainTable.appendChild(tableBody)
         editBox.appendChild(mainTable)
