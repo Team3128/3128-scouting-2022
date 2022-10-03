@@ -505,8 +505,8 @@ function updateTimer(){
             transition(2)
           }
           if(timer == 30){
-            state = "end"
-            transition(3)
+            //state = "end"
+            //transition(3)
           }
           if(timer == 0) {
             console.log("Game over");
