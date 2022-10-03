@@ -532,7 +532,6 @@ function updateQr(){
 
 
     for(let i=0; i<dataValues.length; i++){
-
         if(i == 8){ //scrappy code, should change later   
         }
         else if(typeof dataValues[i] == "boolean"){ //convert boolean to 0 or 1
@@ -550,7 +549,7 @@ function updateQr(){
 
         }
         
-    }    console.log(dataValues)
+    }    //console.log(dataValues)
 
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
@@ -771,6 +770,8 @@ function resetGame(){
     //resetting initial page values
     document.getElementById("initNumberForm").value = '';
     document.getElementById("initMatchForm").value++;
+    document.getElementById("qrOutput").innerHTML = "";
+    document.getElementById("initSearchForm").value = '';
     
     let displayMatch = document.createElement("div");
     displayMatch.setAttribute("id", "display-match");
