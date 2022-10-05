@@ -545,7 +545,7 @@ function updateQr(){
         else if(typeof dataValues[i] == "string"){ 
             let textValue = document.getElementById(("str" + i)).value;
             textValue = textValue.replaceAll(",", ";");
-            dataValues[i] = textValue
+            dataValues[i] = textValue;
 
         }
         
@@ -645,8 +645,10 @@ function clickEvt(type, loc, rev = null){
         if(rev == "value"){
             dataValues[rowContent[selected].writeLoc] = document.getElementById("editTextBox").value
             document.getElementById(("qataPageCellNumber" + selected)).innerHTML = dataValues[rowContent[selected].writeLoc]
-            return;
+            dataValues[rowContent[selected].writeLoc]++; //hacky bugfix 2: electric boogaloo (why does this work bro)
+            dataValues[rowContent[selected].writeLoc]--;
         }
+
         if(rowContent[selected].writeType == "bool"){
             dataValues[rowContent[selected].writeLoc] = !dataValues[rowContent[selected].writeLoc]
         }
