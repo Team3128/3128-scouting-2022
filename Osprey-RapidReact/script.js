@@ -772,6 +772,10 @@ function resetGame(){
     document.getElementById("initMatchForm").value++;
     document.getElementById("qrOutput").innerHTML = "";
     document.getElementById("initSearchForm").value = '';
+    document.getElementById("notes").value = '';
+
+    //close out of note box
+    document.getElementById('notes').blur()
     
     let displayMatch = document.createElement("div");
     displayMatch.setAttribute("id", "display-match");

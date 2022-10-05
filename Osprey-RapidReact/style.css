@@ -534,6 +534,8 @@ body{
 
     overflow-wrap: break-word;
 
+    overflow-y: scroll;
+
     border: 2px solid var(--bgColor);
     border-radius: 0.5rem;
     background-color: var(--altBgColor);
