@@ -760,6 +760,7 @@ function resetGame(){
     selected = -1;
     clearInterval(timerFunction);
     teamNum = null;
+    notesToggled = false;
 
     dataValues = [false, 0, 0, 0, 0, 0, 0, false, null, 0, 0, false, "", false, "", "", ""]
 
