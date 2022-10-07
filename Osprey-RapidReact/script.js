@@ -95,7 +95,6 @@ window.addEventListener('keydown', function (keystroke) {
         document.getElementById("notesPage").classList.remove("notesPageAnimR")
 
         if(!notesToggled){
-        
             document.getElementById('notesPage').classList.add("notesPageAnim")
             document.getElementById('notes').classList.add("notesAnim")
             document.getElementById('notes').focus()
@@ -105,7 +104,6 @@ window.addEventListener('keydown', function (keystroke) {
             } else {
                 document.getElementById("notes").innerHTML = dataValues[14];
             }
-
         }
         else{
             document.getElementById('notes').blur()
@@ -545,8 +543,11 @@ function updateQr(){
         else if(typeof dataValues[i] == "string"){ 
             let textValue = document.getElementById(("str" + i)).value;
             textValue = textValue.replaceAll(",", ";");
-            dataValues[i] = textValue;
-
+            if (textValue.length == 0) {
+                dataValues[i] = "None";
+            } else {
+                dataValues[i] = textValue;
+            }
         }
         
     }    //console.log(dataValues)
