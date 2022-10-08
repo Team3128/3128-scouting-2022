@@ -3,7 +3,6 @@ let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowC
 let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
 
 let startAudio = new Audio("sfx/start.wav")
-let clickAudio = new Audio("sfx/click.wav")
 var img = new Image(); 
 img.src = 'img/field.png';
 var canvas = document.getElementById('fieldCanvas');
@@ -51,7 +50,7 @@ function switchColor() {
 document.getElementById("searchBtn").addEventListener("click", ()=>{
     searchTerm = document.getElementById("initSearchForm").value        
     value = localStorage.getItem(searchTerm)
-    if (value == null || searchTerm == null) {
+    if (value == null || searchTerm == null || searchTerm == '') {
         document.getElementById('qrOutput').innerHTML = "";
         console.log("No data found")
         return
@@ -568,7 +567,8 @@ let incArr = []
 let selected = -1;
 function clickEvt(type, loc, rev = null){
     console.log(type + " " + loc);
-    // clickAudio.play();
+    let clickAudio = new Audio("sfx/click.wav")
+    clickAudio.play();
     //during game
     if(type == "int"){
         document.getElementById("box" + loc).classList.remove("clickAnim");
