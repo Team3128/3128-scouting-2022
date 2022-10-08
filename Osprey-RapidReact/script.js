@@ -293,6 +293,8 @@ function generateMainPage(stage){
                     option.addEventListener("click", ()=> clickEvt("cyc", settings.after[i].writeLoc, settings.after[i].cycOptions[b]))
                     bar.appendChild(option);
                 }
+                //set default value
+                dataValues[settings.after[i].writeLoc] = settings.after[i].cycOptions[0];
                 
             }
             if(settings.after[i].writeType == "bool"){
