@@ -12,6 +12,19 @@ ctx.drawImage(img, 0, 0);
 
 window.onscroll = () => { window.scroll(0, 0); }; //stops scrolling, hacky bugfix
 
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("searchBtn");
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x) or clicks anywhere outside of the modal, close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 document.getElementById("fieldCanvas").addEventListener("click", ()=>{
     canvasClicked()
 })
@@ -67,6 +80,7 @@ document.getElementById("searchBtn").addEventListener("click", ()=>{
     document.getElementById('qrOutput').innerHTML = qr.createImgTag();
     console.log("Data found for match " + searchTerm + ": ");
     console.log(value);
+    modal.style.display = "block";
 })
 
 let keys = [];
