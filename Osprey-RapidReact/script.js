@@ -1,6 +1,7 @@
 let state = "init", matchNum, scoutNum, teamNum, teamPos, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
 let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
+let testing = false; // DISABLES INTRO PAGE CHECKS IF TRUE
 
 let startAudio = new Audio("sfx/start.wav")
 var img = new Image(); 
@@ -12,6 +13,7 @@ ctx.drawImage(img, 0, 0);
 
 window.onscroll = () => { window.scroll(0, 0); }; //stops scrolling, hacky bugfix
 
+//code for search qr popup
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("searchBtn");
 var span = document.getElementsByClassName("close")[0];
@@ -715,29 +717,31 @@ function transition(i){
         teamNum = document.getElementById("initNumberForm").value;
         teamPos = document.getElementById("initPositionForm").value;
 
-        if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
-            if (!confirm("Did you enter the alliance color by clicking eScouting?")) {
-              return;
+        if (!testing) {
+            if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
+                if (!confirm("Did you enter the alliance color by clicking eScouting?")) {
+                return;
+                }
             }
-        }
-        if (scoutNum == "") { //check scout name
-            if (!confirm("Did you enter your name in scout id?")) {
-              return;
+            if (scoutNum == "") { //check scout name
+                if (!confirm("Did you enter your name in scout id?")) {
+                return;
+                }
             }
-        }
-        if (!(/^\d+$/.test(teamNum))) { //check if team number is a number
-            if (!confirm("Did you enter your team number correctly?")) {
-              return;
+            if (!(/^\d+$/.test(teamNum))) { //check if team number is a number
+                if (!confirm("Did you enter your team number correctly?")) {
+                return;
+                }
             }
-        }
-        if (!(/^\d+$/.test(matchNum))) { //check if match number is a number
-            if (!confirm("Did you enter the match number correctly?")) {
-              return;
+            if (!(/^\d+$/.test(matchNum))) { //check if match number is a number
+                if (!confirm("Did you enter the match number correctly?")) {
+                return;
+                }
             }
-        }
-        if (!(teamPos == 1 || teamPos == 2 || teamPos == 3)) { //check if team position is 1, 2, or 3
-            if (!confirm("Did you enter your team position correctly?")) {
-              return;
+            if (!(teamPos == 1 || teamPos == 2 || teamPos == 3)) { //check if team position is 1, 2, or 3
+                if (!confirm("Did you enter your team position correctly?")) {
+                return;
+                }
             }
         }
 
