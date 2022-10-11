@@ -1,4 +1,4 @@
-let state = "init", matchNum, scoutNum, teamNum, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
+let state = "init", matchNum, scoutNum, teamNum, teamPos, timer = 150, delay = true, rowContent = [], notesToggled = false, matchInfo = [], allianceColor = "n";
 
 let timeInt = 1000; // Time Interval, SHOULD BE 1000!!!!!!!
 
@@ -689,6 +689,7 @@ function clickEvt(type, loc, rev = null){
     if(type == "transition"){
         if(confirm("Resetting game... Are you sure you have been scanned and given OK?")){
             localStorage.setItem(matchNum, matchInfo.concat(dataValues));
+            console.log("Final Data: " + matchInfo.concat(dataValues));
             resetGame()
         }
     }
@@ -712,14 +713,37 @@ function transition(i){
         scoutNum = document.getElementById("initIdForm").value;
         matchNum = document.getElementById("initMatchForm").value;
         teamNum = document.getElementById("initNumberForm").value;
+        teamPos = document.getElementById("initPositionForm").value;
 
         if (!(allianceColor == 'b' || allianceColor == 'r')) { //check alliance color
             if (!confirm("Did you enter the alliance color by clicking eScouting?")) {
               return;
             }
         }
+        if (scoutNum == "") { //check scout name
+            if (!confirm("Did you enter your name in scout id?")) {
+              return;
+            }
+        }
+        if (!(/^\d+$/.test(teamNum))) { //check if team number is a number
+            if (!confirm("Did you enter your team number correctly?")) {
+              return;
+            }
+        }
+        if (!(/^\d+$/.test(matchNum))) { //check if match number is a number
+            if (!confirm("Did you enter the match number correctly?")) {
+              return;
+            }
+        }
+        if (!(teamPos == 1 || teamPos == 2 || teamPos == 3)) { //check if team position is 1, 2, or 3
+            if (!confirm("Did you enter your team position correctly?")) {
+              return;
+            }
+        }
 
-        matchInfo = [teamNum, matchNum, scoutNum, allianceColor];
+        combAllianceColor = allianceColor + teamPos;
+        console.log("alliance color: " + combAllianceColor)
+        matchInfo = [teamNum, matchNum, scoutNum, combAllianceColor];
 
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
         setTimeout(()=>{
