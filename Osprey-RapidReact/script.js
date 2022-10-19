@@ -559,7 +559,7 @@ function updateQr(){
         }
         else if(typeof dataValues[i] == "string"){ 
             let textValue = document.getElementById(("str" + i)).value;
-            textValue = textValue.replaceAll(",", ";");
+            textValue = textValue.replace(/\n/g, ' ').replace(/\,/g, ';');
             if (textValue.length == 0) {
                 dataValues[i] = "None";
             } else {
@@ -748,6 +748,7 @@ function transition(i){
         combAllianceColor = allianceColor + teamPos;
         console.log("alliance color: " + combAllianceColor)
         matchInfo = [teamNum, matchNum, scoutNum, combAllianceColor];
+        document.getElementById("infoBar").innerHTML = "Match: " + matchNum + ", Team: " + teamNum + ", Position: " + combAllianceColor
 
         document.getElementById("initFormContainer").classList.add("transitionEvent0");
         setTimeout(()=>{
@@ -814,6 +815,9 @@ function resetGame(){
     let displayBar = document.createElement("div");
     displayBar.setAttribute("id", "displayBar");
     mainPage.appendChild(displayBar);
+
+    //clear infobar
+    document.getElementById("infoBar").innerHTML = '';
 
     //resetting initial page values
     document.getElementById("initNumberForm").value = '';
