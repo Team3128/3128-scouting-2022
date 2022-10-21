@@ -44,6 +44,18 @@ function clearStorage() {
     return;
 }
 
+function getStorage() {
+    console.log("GETTING DATA")
+    let allData = "";
+    for(var i in localStorage) {
+        if (typeof localStorage[i] == "string") {
+            allData += localStorage[i] + "\n"
+        }
+    }
+    console.log(allData)
+    return;
+}
+
 function setColor(col) {
     allianceColor = col;
     console.log("Alliance color set to: " + allianceColor)
@@ -62,6 +74,7 @@ function switchColor() {
     }
 }
 
+//search function
 document.getElementById("searchBtn").addEventListener("click", ()=>{
     searchTerm = document.getElementById("initSearchForm").value        
     value = localStorage.getItem(searchTerm)
@@ -78,7 +91,9 @@ document.getElementById("searchBtn").addEventListener("click", ()=>{
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
     qr.addData(value);
-    qr.make();
+    qr.make();    
+    //var mod = qr.getModuleCount();
+    //console.log(mod);
     document.getElementById('qrOutput').innerHTML = qr.createImgTag();
     console.log("Data found for match " + searchTerm + ": ");
     console.log(value);
@@ -569,6 +584,8 @@ function updateQr(){
         
     }    //console.log(dataValues)
 
+    //reference for qr gen: https://github.com/kazuhikoarase/qrcode-generator/blob/master/js/README.md
+
     var typeNumber = 0;
     var errorCorrectionLevel = 'L';
     var qr = qrcode(typeNumber, errorCorrectionLevel);
@@ -851,7 +868,6 @@ function resetGame(){
     document.getElementById("mainPage").classList.add("mainPage");
 }
 
-//annoying reminders: did you put in auto time? climb bool? at edit screen
 //buffers for phase switching
 //manual vs auto phase switching
 //hour logging?
